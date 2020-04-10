@@ -300,7 +300,8 @@ module.exports = function(webpackEnv) {
         ...(modules.webpackAliases || {}),
         "@src":path.resolve("src"),
         "@components":path.resolve("src/components"),
-        "@pages":path.resolve("src/pages")
+        "@containers":path.resolve("src/containers"),
+        "@redux":path.resolve("src/redux"),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

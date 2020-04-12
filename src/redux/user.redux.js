@@ -83,6 +83,18 @@ export function register ({ user, pwd, repeatpwd, type }) {
     }
 }
 
+export function update (data) {
+    return (dispatch) => {
+        axios.post('/user/update', data).then(res => {
+            if (res.status === 200 && res.data.code === 0) {
+                dispatch(authSuccess(res.data.data))
+            } else {
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
+    }
+}
+
 export function clearPropsMsg () {
     return (dispatch) => {
         dispatch(clearMsg())

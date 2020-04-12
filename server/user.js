@@ -6,8 +6,11 @@ const User = models.getModel('user')
 const _filter = { 'pwd': 0, '__v': 0 }
 
 Router.get('/list', (req, res) => {
-    User.find({}, (err, doc) => {
-        return res.json(doc)
+    const { type } = req.query
+    User.find({ type }, _filter, (err, doc) => {
+        if (!err) {
+            return res.json({ code: 0, data: doc })
+        }
     })
 })
 
@@ -15,7 +18,7 @@ Router.post('/login', (req, res) => {
     const { user, pwd } = req.body
     User.findOne({ user, pwd: md5Pwd(pwd) }, _filter, (err, doc) => {
         if (!doc) {
-			return res.json({ code:1,msg:'用户名或者密码错误' })
+			return res.json({ code: 1, msg: '用户名或者密码错误' })
         }
         res.cookie('userId', doc._id)
         return res.json({ code: 0, data: doc })
@@ -28,7 +31,7 @@ Router.post('/register', (req, res) => {
         if (doc) {
             return res.json({ code: 1, msg: '用户名重复'})
         }
-        const userModel = new User({ user, pwd, type })
+        const userModel = new User({ user, type, pwd: md5Pwd(pwd) })
         userModel.save((err, doc) => {
             if (err) {
                 return res.json({ code: 1, 'msg': '后端出错了' })
@@ -42,18 +45,32 @@ Router.post('/register', (req, res) => {
 
 Router.get('/info', (req, res) => {
     // 检测用户有没有cookie
-    console.log(req)
     const { userId } = req.cookies
     if (!userId) {
         return res.json({ code: 1 })
     }
-    User.findOne({ _id: userId }, (err, doc) => {
+    User.findOne({ _id: userId }, _filter, (err, doc) => {
         if (err) {
             return res.json({ code: 1, msg: '后端出错了' })
         }
         if (doc) {
             return res.json({ code: 0, data: doc })
         }
+    })
+})
+
+Router.post('/update', (req, res) => {
+    const { userId } = req.cookies
+    if (!userId) {
+        return res.json({ code: 1 })
+    }
+    const body = req.body
+    User.findByIdAndUpdate(userId, body, (err, doc) => {
+        const data = Object.assign({}, {
+            user: doc.user,
+            type: doc.type
+        }, body)
+        return res.json({ code: 0, data })
     })
 })
 

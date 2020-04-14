@@ -50,7 +50,7 @@ class BossInfo extends Component {
                         onChange={(v) => this.handleChange('company', v)}
                     >公司名称</InputItem>
                     <InputItem
-                        onChange={(v) => this.handleChange('salary', v)}
+                        onChange={(v) => this.handleChange('money', v)}
                     >职位薪资</InputItem>
                      <TextareaItem
                         title="职位要求"

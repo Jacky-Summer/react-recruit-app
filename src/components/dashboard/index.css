@@ -6,10 +6,25 @@
 .fixd-header {
     z-index: 99;
 }
+.navbar-container {
+    z-index: 99;
+    position: absolute;
+}
+.user-card, .user-card > .am-card-header, .am-card-body {
+    z-index: 40;
+}
 .fixd-header.am-navbar {
 	position: fixed;
 	top: 0;
 	width: 100%;
+}
+.navbar-container {
+    position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+.navbar-container > .am-tab-bar {
+    position: relative;
 }
 .main-list-card {
     margin-top: 45px;

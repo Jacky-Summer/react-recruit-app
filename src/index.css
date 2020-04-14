@@ -1,5 +1,25 @@
+html, body {
+    touch-action: pan-y;
+}
 .error-msg{
 	color:#f50;
 	padding-left:10px;
 	padding-top:10px;
+}
+.stick-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.chat-me .am-list-line .am-list-content{
+    text-align: right;
+}
+.chat-me .am-list-line .am-list-extra {
+    flex-basis: 10%;
+}
+.emoji-container .am-flexbox .am-flexbox-item .am-grid-item-content .am-grid-item-inner-content .am-grid-text {
+    margin-top: 0;
+}
+.emoji-container .am-flexbox .am-flexbox-item .am-grid-item-content .am-grid-item-inner-content .am-grid-icon {
+    display: none;
 }

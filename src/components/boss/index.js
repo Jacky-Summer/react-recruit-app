@@ -9,7 +9,7 @@ import { getUserList } from '../../redux/chat.redux'
 )
 class Boss extends Component {
     componentDidMount () {
-        this.props.getUserList('boss')
+        this.props.getUserList('genius')
     }
     render() {
         return (

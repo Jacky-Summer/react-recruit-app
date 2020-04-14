@@ -5,7 +5,7 @@ import { getRedirectPath } from '../util'
 const USER_AUTH_SUCCESS = 'USER_AUTH_SUCCESS'
 const USER_ERR0R_MSG = 'USER_ERROR_MSG'
 const USER_LOAD_DATA = 'USER_LOAD_DATA'
-const USER_CLEAR_MSG = 'USER_CLEAR_MSG'
+const USER_LOGOUT = 'USER_LOGOUT'
 const initState = {
     redirectTo: '',
     isAuth: false,
@@ -23,8 +23,8 @@ export function user(state = initState, action) {
             return { ...state, isAuth: false, msg: action.msg }
         case USER_LOAD_DATA:
             return { ...state, ...action.payload }
-        case USER_CLEAR_MSG:
-            return { ...state, msg: '' }
+        case USER_LOGOUT:
+            return {...initState, redirectTo: '/login'}
         default:
             return state
     }
@@ -40,10 +40,6 @@ function authSuccess (obj) {
 
 function errorMsg (msg) {
     return { type: USER_ERR0R_MSG, msg }
-}
-
-function clearMsg () {
-    return { type: USER_CLEAR_MSG }
 }
 
 export function loadData (userInfo) {
@@ -63,6 +59,10 @@ export function login ({ user, pwd }) {
             }
         })
     }
+}
+
+export function logoutSubmit () {
+    return { type: USER_LOGOUT }
 }
 
 export function register ({ user, pwd, repeatpwd, type }) {
@@ -92,11 +92,5 @@ export function update (data) {
                 dispatch(errorMsg(res.data.msg))
             }
         })
-    }
-}
-
-export function clearPropsMsg () {
-    return (dispatch) => {
-        dispatch(clearMsg())
     }
 }

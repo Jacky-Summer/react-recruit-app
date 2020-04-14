@@ -6,18 +6,19 @@ import { withRouter } from 'react-router-dom'
 
 @withRouter
 @connect(
-    state => state
+    state => state.chatuser
 )
 class NavLinkBar extends Component {
     render() {
         const navList = this.props.data.filter(v => !v.hide)
         const pathname = this.props.location.pathname
         return (
-            <div>
+            <div className="navbar-container">
                 <TabBar>
                     {navList.map(v => {
                         return (
                             <TabBar.Item
+                                badge={v.path === '/msg' ? this.props.unread : null}
                                 title={v.text}
                                 key={v.path}   
                                 icon={{uri: require(`./img/${v.icon}.png`)}}                         

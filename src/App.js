@@ -8,6 +8,7 @@ import Register from '@containers/register'
 import BossInfo from '@containers/bossinfo'
 import GinusInfo from '@containers/geniusinfo'
 import Dashboard from '@components/dashboard'
+import Chat from '@components/chat'
 import './config'
 import './index.css'
 
@@ -21,6 +22,7 @@ function App() {
           <Route path='/register' component={Register}/>
           <Route path='/bossinfo' component={BossInfo}/>
           <Route path='/geniusinfo' component={GinusInfo}/>
+          <Route path='/chat/:user' component={Chat}/>
           <Route component={Dashboard}/>
         </Switch>
       </Router>
